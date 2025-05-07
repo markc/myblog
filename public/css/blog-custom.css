@@ -1,0 +1,36 @@
+/* Custom styles for blog pages */
+.container {
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+/* Match the container width for post content */
+.blog-post-content {
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+/* Ensure consistent spacing for all blog sections */
+section.blog-section {
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .container,
+    .blog-post-content,
+    section.blog-section {
+        max-width: 100% !important;
+    }
+}

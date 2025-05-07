@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Filament\Pages\Auth;
+
+use Filament\Forms\Components\Component;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Pages\Auth\Register as BaseRegister;
+use Illuminate\Validation\Rules\Password;
+
+class Register extends BaseRegister
+{
+    // Use custom view
+    protected static string $view = 'filament.pages.auth.register';
+
+    // Customize the name form component
+    protected function getNameFormComponent(): Component
+    {
+        return TextInput::make('name')
+            ->label(__('filament-panels::pages/auth/register.form.name.label'))
+            ->required()
+            ->maxLength(255)
+            ->autofocus();
+    }
+
+    // Customize the email form component
+    protected function getEmailFormComponent(): Component
+    {
+        return TextInput::make('email')
+            ->label(__('filament-panels::pages/auth/register.form.email.label'))
+            ->email()
+            ->required()
+            ->maxLength(255)
+            ->unique($this->getUserModel());
+    }
+
+    // Customize the password form component
+    protected function getPasswordFormComponent(): Component
+    {
+        return TextInput::make('password')
+            ->label(__('filament-panels::pages/auth/register.form.password.label'))
+            ->password()
+            ->revealable(filament()->arePasswordsRevealable())
+            ->required()
+            ->rule(Password::default())
+            ->dehydrateStateUsing(fn ($state) => \Illuminate\Support\Facades\Hash::make($state))
+            ->same('passwordConfirmation')
+            ->validationAttribute(__('filament-panels::pages/auth/register.form.password.validation_attribute'));
+    }
+
+    // Customize the password confirmation form component
+    protected function getPasswordConfirmationFormComponent(): Component
+    {
+        return TextInput::make('passwordConfirmation')
+            ->label(__('filament-panels::pages/auth/register.form.password_confirmation.label'))
+            ->password()
+            ->revealable(filament()->arePasswordsRevealable())
+            ->required()
+            ->dehydrated(false);
+    }
+
+    // Override the form function to add your custom styling or behavior
+    public function form(Form $form): Form
+    {
+        return parent::form($form);
+    }
+
+    // Add any custom behavior when registering
+    protected function mutateFormDataBeforeRegister(array $data): array
+    {
+        // Add default values or modify data before saving
+        $data['is_admin'] = false; // New users are not admins by default
+        $data['can_post'] = false; // New users cannot post by default
+        $data['can_edit_others'] = false; // New users cannot edit others' posts
+        $data['can_moderate'] = false; // New users cannot moderate by default
+        
+        return $data;
+    }
+}

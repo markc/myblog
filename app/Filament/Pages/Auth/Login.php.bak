@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Filament\Pages\Auth;
+
+use Filament\Forms\Form;
+use Filament\Pages\Auth\Login as BaseLogin;
+use Filament\Forms\Components\Component;
+use Filament\Forms\Components\TextInput;
+
+class Login extends BaseLogin
+{
+    // Use our custom login view template
+    protected static string $view = 'filament.pages.auth.login';
+
+    // Customize the email form component
+    protected function getEmailFormComponent(): Component
+    {
+        return TextInput::make('email')
+            ->label(__('filament-panels::pages/auth/login.form.email.label'))
+            ->email()
+            ->required()
+            ->autocomplete()
+            ->autofocus()
+            ->extraInputAttributes(['tabindex' => 1]);
+    }
+
+    // Customize the password form component
+    protected function getPasswordFormComponent(): Component
+    {
+        return parent::getPasswordFormComponent();
+    }
+    
+    // Override the form function to add your custom styling or behavior
+    public function form(Form $form): Form
+    {
+        return parent::form($form);
+    }
+}
