@@ -173,6 +173,9 @@
             </div>
         </main>
 
+        <!-- Global Footer -->
+        @include('filament.layouts.app-footer')
+
         @if (Route::has('login'))
             <div class="h-14.5 hidden lg:block"></div>
         @endif

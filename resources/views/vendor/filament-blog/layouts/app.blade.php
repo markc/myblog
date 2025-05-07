@@ -221,78 +221,10 @@
             </div>
         </main>
 
-        <!-- Footer -->
-        <footer class="mt-10 w-full border-t border-[#e3e3e0] dark:border-[#3E3E3A] px-5 py-12">
-            <div class="container mx-auto">
-                <div class="mb-4">
-                    <div class="grid justify-between gap-x-10 gap-y-10 sm:grid-cols-3">
-                        <div class="flex flex-col items-start gap-3 py-3">
-                            <h4 class="text-xl font-bold text-amber-500 dark:text-amber-400">{{ $setting?->title }}</h4>
-                            <p class="text-gray-600 dark:text-gray-300">
-                                {{ $setting?->description }}
-                            </p>
-                        </div>
-                        <div class="grid sm:grid-cols-2 col-span-2">
-                            <div class="md:flex md:flex-col grid gap-3 py-3 text-sm font-medium">
-                                <h4 class="text-xl font-bold text-amber-500 dark:text-amber-400">Quick Links</h4>
-                                @forelse($setting->quick_links ?? [] as $link)
-                                    <a href="{{ $link['url'] }}"
-                                        class="text-gray-600 dark:text-gray-300 hover:text-amber-500 dark:hover:text-amber-400 transition duration-300">
-                                        {{ $link['label'] }}
-                                    </a>
-                                @empty
-                                    <p class="text-gray-400 dark:text-gray-500">No links found</p>
-                                @endforelse
-                            </div>
-                            <div class="flex flex-col items-start gap-3 text-sm font-medium">
-                                <div class="relative overflow-hidden rounded-lg bg-white dark:bg-[#161615] shadow-lg px-6 py-4">
-                                    <div class="mb-3 pb-2 text-xl font-bold text-amber-500 dark:text-amber-400">
-                                        Subscribe to our Newsletter
-                                    </div>
-                                    <div>
-                                        <p class="mb-3 block text-gray-600 dark:text-gray-300">
-                                            Subscribe to our mailing list to receive daily updates direct to your inbox!
-                                        </p>
-                                        <div>
-                                            <form method="post" action="{{ route('filamentblog.post.subscribe') }}">
-                                                @csrf
-                                                <label hidden for="email-address">Email</label>
-                                                @error('email')
-                                                    <span class="text-xs text-red-500">{{ $message }}</span>
-                                                @enderror
-                                                <div class="w-100 relative">
-                                                    <input autocomplete="email"
-                                                        class="flex w-full items-center justify-between rounded-md border border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] px-4 py-3 text-gray-700 dark:text-gray-300 outline-none focus:ring-1 focus:ring-amber-400 placeholder:text-gray-400 dark:placeholder:text-gray-500"
-                                                        name="email" value="{{ old('email') }}"
-                                                        placeholder="Enter your email" type="email">
-                                                    <button type="submit"
-                                                        class="absolute right-3 top-1/2 -translate-y-1/2 bg-amber-400 hover:bg-black text-black hover:text-amber-400 dark:bg-amber-400 dark:hover:bg-black dark:text-black dark:hover:text-amber-400 p-1.5 rounded-md">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
-                                                            viewBox="0 0 256 256">
-                                                            <path fill="currentColor"
-                                                                d="m220.24 132.24l-72 72a6 6 0 0 1-8.48-8.48L201.51 134H40a6 6 0 0 1 0-12h161.51l-61.75-61.76a6 6 0 0 1 8.48-8.48l72 72a6 6 0 0 1 0 8.48" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                                @if (session('success'))
-                                                    <span class="text-green-500">{{ session('success') }}</span>
-                                                @endif
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-7 flex flex-wrap items-start justify-center gap-10 border-t border-[#e3e3e0] dark:border-[#3E3E3A] pt-5">
-                    <div class="text-gray-500 dark:text-gray-400 text-sm">
-                        © 2024 {{ $setting->organization_name ?? 'MyBlog' }}. All rights reserved.
-                    </div>
-                </div>
-            </div>
-        </footer>
+        <!-- Global Footer -->
+        @include('filament.layouts.app-footer')
         
+        <!-- Mobile navigation for blog only -->
         <div class="fixed bottom-0 left-0 z-50 h-16 w-full border-t border-[#e3e3e0] dark:border-[#3E3E3A] bg-white dark:bg-[#161615] sm:hidden">
             <div class="mx-auto grid h-full max-w-lg grid-cols-2 justify-center font-medium">
                 <a href="{{ route('filamentblog.post.index') }}"

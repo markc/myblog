@@ -118,6 +118,8 @@
         
         {{ $slot }}
 
+        @include('filament.layouts.app-footer')
+
         @livewire(Filament\Livewire\Notifications::class)
 
         {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::SCRIPTS_BEFORE, scopes: $livewire->getRenderHookScopes()) }}
