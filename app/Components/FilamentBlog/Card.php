@@ -1,6 +1,6 @@
 <?php
 
-namespace Firefly\FilamentBlog\Components;
+namespace App\Components\FilamentBlog;
 
 use Illuminate\View\Component;
 

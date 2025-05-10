@@ -113,8 +113,6 @@ class User extends Authenticatable implements FilamentUser
 
     /**
      * Get the user's name.
-     * 
-     * @return string
      */
     public function name(): string
     {
